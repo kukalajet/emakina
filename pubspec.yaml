@@ -1,0 +1,30 @@
+name: emakina
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bloc: ^7.0.0
+  equatable: ^2.0.0
+  flutter_bloc: ^7.0.0
+  cached_network_image: ^3.0.0
+  google_fonts: ^2.0.0
+  shared_preferences: ^2.0.5
+  flutter_secure_storage: ^4.1.0
+  listing_repository:
+    path: packages/listing_repository
+  favorite_repository:
+    path: packages/favorite_repository
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

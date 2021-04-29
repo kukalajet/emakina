@@ -1,0 +1,35 @@
+name: listing_repository
+description: Dart package which plays as a repository for listings.
+version: 1.0.0
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.1
+  equatable: ^2.0.0
+
+  color_repository:
+    path: ../../packages/color_repository
+  fuel_repository:
+    path: ../../packages/fuel_repository
+  location_repository:
+    path: ../../packages/location_repository
+  manufacturer_repository:
+    path: ../../packages/manufacturer_repository
+  model_repository:
+    path: ../../packages/model_repository
+  plate_repository:
+    path: ../../packages/plate_repository
+  transmission_repository:
+    path: ../../packages/transmission_repository
+  vehicle_type_repository:
+    path: ../../packages/vehicle_type_repository
+  valute_repository:
+    path: ../../packages/valute_repository
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

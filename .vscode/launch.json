@@ -1,0 +1,73 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "emakina",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "color_repository",
+      "cwd": "packages\\color_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "favorite_repository",
+      "cwd": "packages\\favorite_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "fuel_repository",
+      "cwd": "packages\\fuel_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "listing_repository",
+      "cwd": "packages\\listing_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "location_repository",
+      "cwd": "packages\\location_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "manufacturer_repository",
+      "cwd": "packages\\manufacturer_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "model_repository",
+      "cwd": "packages\\model_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "plate_repository",
+      "cwd": "packages\\plate_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "transmission_repository",
+      "cwd": "packages\\transmission_repository",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "vehicle_type_repository",
+      "cwd": "packages\\vehicle_type_repository",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
+}

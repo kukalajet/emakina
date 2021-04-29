@@ -1,0 +1,4 @@
+enum AppTab {
+  feed,
+  profile,
+}
