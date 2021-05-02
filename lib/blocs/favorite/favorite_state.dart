@@ -35,5 +35,33 @@ class FavoriteSuccess extends FavoriteState {
 
   @override
   String toString() =>
-      'ListingSuccess { favorites: ${favorites.length}, hasReachedMax: $hasReachedMax }';
+      'FavoriteSuccess { favorites: ${favorites.length}, hasReachedMax: $hasReachedMax }';
+}
+
+class FavoriteSave extends FavoriteState {
+  const FavoriteSave({
+    this.id,
+  });
+
+  final int id;
+
+  @override
+  List<Object> get props => [id];
+
+  @override
+  String toString() => 'FavoriteSave { id: $id }';
+}
+
+class FavoriteRemove extends FavoriteState {
+  const FavoriteRemove({
+    this.id,
+  });
+
+  final int id;
+
+  @override
+  List<Object> get props => [id];
+
+  @override
+  String toString() => 'FavoriteRemove { id: $id }';
 }

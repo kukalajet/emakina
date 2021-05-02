@@ -11,14 +11,28 @@ class FavoriteFetched extends FavoriteEvent {}
 
 class FavoriteSaved extends FavoriteEvent {
   const FavoriteSaved({
-    @required this.favorite,
+    @required this.id,
   });
 
-  final Listing favorite;
+  final int id;
 
   @override
-  List<Object> get props => [favorite];
+  List<Object> get props => [id];
 
   @override
-  String toString() => 'FavoriteSaved { favorite: $favorite }';
+  String toString() => 'FavoriteSaved { id: $id }';
+}
+
+class FavoriteRemoved extends FavoriteEvent {
+  const FavoriteRemoved({
+    @required this.id,
+  });
+
+  final int id;
+
+  @override
+  List<Object> get props => [id];
+
+  @override
+  String toString() => 'FavoriteRemoved { id: $id }';
 }

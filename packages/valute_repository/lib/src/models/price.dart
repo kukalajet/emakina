@@ -12,11 +12,11 @@ class Price {
 
   factory Price.fromJson(Map<String, dynamic> json) {
     return Price(
-      value: double.parse(json['value']),
+      value: json['value'],
       valute: Valute.fromJson(json['valute']),
     );
   }
 
   @override
-  String toString() => '{ value: $value, valute: $valute }';
+  String toString() => '{ "value": $value, "valute": $valute }';
 }

@@ -279,7 +279,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -314,7 +314,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   transmission_repository:
     dependency: transitive
     description:
@@ -329,6 +329,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  valute_repository:
+    dependency: transitive
+    description:
+      path: "../valute_repository"
+      relative: true
+    source: path
+    version: "1.0.0"
   vector_math:
     dependency: transitive
     description:

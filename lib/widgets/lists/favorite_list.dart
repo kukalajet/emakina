@@ -55,7 +55,7 @@ class _FavoriteListState extends State<FavoriteList> {
             ),
             itemBuilder: (BuildContext context, int index) {
               return index >= state.favorites.length
-                  ? BottomLoader()
+                  ? null // previously: BottomLoader()
                   : ListingTileAlt(listing: state.favorites[index]);
             },
             itemCount: state.hasReachedMax
@@ -73,11 +73,11 @@ class _FavoriteListState extends State<FavoriteList> {
     super.dispose();
   }
 
-  void _onScroll() {
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll <= _scrollThreshold) {
-      _postBloc.add(FavoriteFetched());
-    }
-  }
+  // void _onScroll() {
+  //   final maxScroll = _scrollController.position.maxScrollExtent;
+  //   final currentScroll = _scrollController.position.pixels;
+  //   if (maxScroll - currentScroll <= _scrollThreshold) {
+  //     _postBloc.add(FavoriteFetched());
+  //   }
+  // }
 }

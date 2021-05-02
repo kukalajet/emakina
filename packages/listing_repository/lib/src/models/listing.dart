@@ -26,6 +26,7 @@ class Listing extends Equatable {
     @required this.manufacturer,
     @required this.model,
     @required this.price,
+    @required this.isFavorite,
   });
 
   final int id;
@@ -41,10 +42,45 @@ class Listing extends Equatable {
   final Manufacturer manufacturer;
   final Model model;
   final Price price;
+  final bool isFavorite;
+
+  Listing copyWith({
+    int id,
+    VehicleType type,
+    Transmission transmission,
+    int year,
+    int mileage,
+    List<Fuel> fuels,
+    List<String> urls,
+    Plate plate,
+    Color color,
+    Location location,
+    Manufacturer manufacturer,
+    Model model,
+    Price price,
+    bool isFavorite,
+  }) {
+    return Listing(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      transmission: transmission ?? this.transmission,
+      mileage: mileage ?? this.mileage,
+      year: year ?? this.year,
+      fuels: fuels ?? this.fuels,
+      urls: urls ?? this.urls,
+      plate: plate ?? this.plate,
+      color: color ?? this.color,
+      location: location ?? this.location,
+      manufacturer: manufacturer ?? this.manufacturer,
+      model: model ?? this.model,
+      price: price ?? this.price,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
 
   @override
   String toString() =>
-      '{ "id": $id, "type": $type, "transmission": $transmission, "year": $year, "mileage": $mileage, "fuels": $fuels, "urls": ${jsonEncode(urls)}, "plate": $plate, "color": $color, "location": $location, "manufacturer": $manufacturer, "model": $model, "price": $price }';
+      '{ "id": $id, "type": $type, "transmission": $transmission, "year": $year, "mileage": $mileage, "fuels": $fuels, "urls": ${jsonEncode(urls)}, "plate": $plate, "color": $color, "location": $location, "manufacturer": $manufacturer, "model": $model, "price": $price, "isFavorite": $isFavorite }';
 
   factory Listing.fromJson(Map<String, dynamic> json) {
     return Listing(
@@ -55,13 +91,14 @@ class Listing extends Equatable {
       year: json['year'],
       fuels:
           (json['fuels'] as List).map((fuel) => Fuel.fromJson(fuel)).toList(),
-      urls: (json['urls'] as List).map((url) => url).toList(),
+      urls: (json['urls'] as List).map((url) => url as String).toList(),
       plate: Plate.fromJson(json['plate']),
       color: Color.fromJson(json['color']),
       location: Location.fromJson(json['location']),
       manufacturer: Manufacturer.fromJson(json['manufacturer']),
       model: Model.fromJson(json['model']),
       price: Price.fromJson(json['price']),
+      isFavorite: json['isFavorite'],
     );
   }
 
@@ -79,5 +116,6 @@ class Listing extends Equatable {
         manufacturer,
         model,
         price,
+        isFavorite,
       ];
 }

@@ -30,12 +30,15 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ListingBloc>(
-            create: (_) => ListingBloc(listingRepository: listingRepository)
-              ..add(ListingFetched()),
+            create: (_) => ListingBloc(
+              listingRepository: listingRepository,
+              favoriteRepository: favoriteRepository,
+            )..add(ListingFetched()),
           ),
           BlocProvider<FavoriteBloc>(
-            create: (_) => FavoriteBloc(favoriteRepository: favoriteRepository)
-              ..add(FavoriteFetched()),
+            create: (_) => FavoriteBloc(
+              favoriteRepository: favoriteRepository,
+            )..add(FavoriteFetched()),
           ),
           BlocProvider<TabBloc>(
             create: (_) => TabBloc(),

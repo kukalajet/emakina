@@ -30,10 +30,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   @override
   Stream<FavoriteState> mapEventToState(FavoriteEvent event) async* {
-    if (event is FavoriteFetched && !_hasReachedMax(state)) {
+    if (event is FavoriteFetched) {
       yield await _mapFavoriteFetchedToState(state);
     } else if (event is FavoriteSaved) {
       yield await _mapFavoriteSavedToState(event, state);
+    } else if (event is FavoriteRemoved) {
+      yield await _mapFavoriteRemovedToState(event, state);
     }
   }
 
@@ -43,17 +45,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   ) async {
     try {
       if (state is FavoriteInitial) {
-        final favorites = await _favoriteRepository.getAll();
-        return FavoriteSuccess(favorites: favorites, hasReachedMax: false);
-      }
-      if (state is FavoriteSuccess) {
-        final favorites = await _favoriteRepository.getAll();
-        return favorites.isEmpty
-            ? state.copyWith(hasReachedmax: true)
-            : FavoriteSuccess(
-                favorites: state.favorites + favorites,
-                hasReachedMax: false,
-              );
+        final favorites = await _favoriteRepository.fetchFavorites();
+        return FavoriteSuccess(favorites: favorites, hasReachedMax: true);
       }
     } catch (_) {
       return FavoriteFailure();
@@ -63,30 +56,37 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   // ignore: missing_return
   Future<FavoriteState> _mapFavoriteSavedToState(
     FavoriteSaved event,
-    FavoriteState state,
+    FavoriteSuccess state,
   ) async {
     try {
-      final favorite = event.favorite;
-      await _favoriteRepository.save(favorite);
+      final id = event.id;
+      await _favoriteRepository.save(id);
 
-      final favorites = await _favoriteRepository.getAll();
-      if (state is FavoriteInitial) {
-        return FavoriteSuccess(favorites: favorites, hasReachedMax: false);
-      }
-      if (state is FavoriteSuccess) {
-        return favorites.isEmpty
-            ? state.copyWith(hasReachedmax: true)
-            : FavoriteSuccess(
-                favorites: state.favorites, // + favorites,
-                hasReachedMax: false,
-              );
-      }
-    } catch (e) {
-      print(e);
+      final favorite = await _favoriteRepository.fetchFavorite(id);
+      return FavoriteSuccess(
+        favorites: List.of(state.favorites)..add(favorite),
+        hasReachedMax: true,
+      );
+    } catch (_) {
       return FavoriteFailure();
     }
   }
 
-  bool _hasReachedMax(FavoriteState state) =>
-      state is FavoriteSuccess && state.hasReachedMax;
+  Future<FavoriteState> _mapFavoriteRemovedToState(
+    FavoriteRemoved event,
+    FavoriteSuccess state,
+  ) async {
+    try {
+      final id = event.id;
+      await _favoriteRepository.remove(id);
+
+      final List<Listing> updated = state.favorites.map((favorite) {
+        return favorite.copyWith(isFavorite: false);
+      }).toList();
+
+      return FavoriteSuccess(favorites: updated, hasReachedMax: true);
+    } catch (_) {
+      return FavoriteFailure();
+    }
+  }
 }

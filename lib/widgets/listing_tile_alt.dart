@@ -19,13 +19,28 @@ class ListingTileAlt extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
-              onPressed: () => context
-                  .read<FavoriteBloc>()
-                  .add(FavoriteSaved(favorite: listing)),
+              onPressed: () {
+                if (listing.isFavorite) {
+                  context
+                      .read<FavoriteBloc>()
+                      .add(FavoriteRemoved(id: listing.id));
+                  context
+                      .read<ListingBloc>()
+                      .add(ListingFavoriteRemoved(id: listing.id));
+                } else {
+                  context
+                      .read<FavoriteBloc>()
+                      .add(FavoriteSaved(id: listing.id));
+                  context
+                      .read<ListingBloc>()
+                      .add(ListingFavoriteSaved(id: listing.id));
+                }
+              },
               color: Colors.white,
-              child: const Icon(
+              child: Icon(
                 Icons.bookmark,
-                color: Colors.black38,
+                color:
+                    listing.isFavorite ? Colors.red.shade900 : Colors.black38,
                 size: 20.0,
               ),
               padding: const EdgeInsets.all(8.0),

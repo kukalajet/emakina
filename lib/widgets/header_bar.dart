@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class HeaderBar extends StatelessWidget {
   Widget _buildTitle() {
     return Text(
-      'Auto 24',
+      'eMakina',
       style: GoogleFonts.lato(
         textStyle: TextStyle(
           color: Colors.red[900],

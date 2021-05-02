@@ -18,12 +18,12 @@ class Valute {
 
   factory Valute.fromJson(Map<String, dynamic> json) {
     return Valute(
-      id: int.parse(json['id']),
+      id: json['id'],
       name: json['name'],
       symbol: json['symbol'],
     );
   }
 
   @override
-  String toString() => '{ id: $id, name: $name, symbol: $symbol }';
+  String toString() => '{ "id": $id, "name": "$name", "symbol": "$symbol" }';
 }

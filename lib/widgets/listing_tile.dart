@@ -44,7 +44,7 @@ class ListingTile extends StatelessWidget {
             child: MaterialButton(
               onPressed: () => context
                   .read<FavoriteBloc>()
-                  .add(FavoriteSaved(favorite: listing)),
+                  .add(FavoriteSaved(id: listing.id)),
               color: Colors.white,
               child:
                   const Icon(Icons.bookmark, color: Colors.black38, size: 24.0),
