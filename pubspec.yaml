@@ -21,6 +21,8 @@ dependencies:
     path: packages/listing_repository
   favorite_repository:
     path: packages/favorite_repository
+  auth_repository:
+    path: packages/auth_repository
 
 dev_dependencies:
   flutter_test:
