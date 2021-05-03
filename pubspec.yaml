@@ -17,12 +17,32 @@ dependencies:
   google_fonts: ^2.0.0
   shared_preferences: ^2.0.5
   flutter_secure_storage: ^4.1.0
+  modal_bottom_sheet: ^2.0.0
+  formz: ^0.4.0
   listing_repository:
     path: packages/listing_repository
   favorite_repository:
     path: packages/favorite_repository
   auth_repository:
     path: packages/auth_repository
+  location_repository:
+    path: packages/location_repository
+  color_repository:
+    path: packages/color_repository
+  fuel_repository:
+    path: packages/fuel_repository
+  manufacturer_repository:
+    path: packages/manufacturer_repository
+  model_repository:
+    path: packages/model_repository
+  plate_repository:
+    path: packages/plate_repository
+  transmission_repository:
+    path: packages/transmission_repository
+  valute_repository:
+    path: packages/valute_repository
+  vehicle_type_repository:
+    path: packages/vehicle_type_repository
 
 dev_dependencies:
   flutter_test:

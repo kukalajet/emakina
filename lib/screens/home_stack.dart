@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emakina/blocs/blocs.dart';
 import 'package:emakina/widgets/widgets.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'feed_screen.dart';
 import 'favorites_screen.dart';
 
@@ -63,7 +64,16 @@ class HomeStack extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniCenterDocked,
           floatingActionButton: CenterButton(
-            onPressed: () {},
+            onPressed: () => {
+              showCupertinoModalBottomSheet(
+                expand: true,
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (context) => Center(
+                  child: Text('Hello World!'),
+                ),
+              )
+            },
           ),
         );
       },
