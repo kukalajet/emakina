@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:color_repository/color_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:emakina/forms/forms.dart';
+import 'package:emakina/validations/validations.dart';
 import 'package:fuel_repository/fuel_repository.dart';
 import 'package:transmission_repository/transmission_repository.dart';
 

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:emakina/blocs/creation/creation.dart';
 import 'package:emakina/blocs/creation/first_creation_form/first_creation_form_bloc.dart';
-import 'package:emakina/forms/forms.dart';
+import 'package:emakina/validations/validations.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:emakina/blocs/blocs.dart';
@@ -11,8 +11,9 @@ import 'package:emakina/blocs/blocs.dart';
 part 'creation_wizard_event.dart';
 part 'creation_wizard_state.dart';
 
-class ListingWizardBloc extends Bloc<CreationWizardEvent, CreationWizardState> {
-  ListingWizardBloc() : super(CreationWizardInitial());
+class CreationWizardBloc
+    extends Bloc<CreationWizardEvent, CreationWizardState> {
+  CreationWizardBloc() : super(CreationWizardInitial());
 
   @override
   Stream<CreationWizardState> mapEventToState(

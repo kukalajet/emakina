@@ -1,3 +1,4 @@
+import 'package:emakina/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emakina/blocs/blocs.dart';
@@ -69,9 +70,7 @@ class HomeStack extends StatelessWidget {
                 expand: true,
                 context: context,
                 backgroundColor: Colors.transparent,
-                builder: (context) => Center(
-                  child: Text('Hello World!'),
-                ),
+                builder: (context) => CreationScreen(),
               )
             },
           ),

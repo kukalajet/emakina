@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:emakina/forms/forms.dart';
+import 'package:emakina/validations/validations.dart';
 import 'package:manufacturer_repository/manufacturer_repository.dart';
 import 'package:model_repository/model_repository.dart';
 import 'package:plate_repository/plate_repository.dart';

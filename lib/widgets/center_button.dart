@@ -11,7 +11,6 @@ class CenterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      // mini: true,
       onPressed: () => onPressed(),
       elevation: 4,
       backgroundColor: Colors.transparent,
