@@ -28,7 +28,7 @@ class CreationDescriptionChanged extends FirstCreationFormEvent {
 class CreationPriceChanged extends FirstCreationFormEvent {
   const CreationPriceChanged({this.price});
 
-  final Price price;
+  final double price;
 
   @override
   List<Object> get props => [price];

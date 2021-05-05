@@ -5,16 +5,21 @@ import 'package:emakina/blocs/blocs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:listing_repository/listing_repository.dart';
 import 'package:favorite_repository/favorite_repository.dart';
+import 'package:valute_repository/valute_repository.dart';
 
 class App extends StatelessWidget {
   const App({
     Key key,
     @required this.listingRepository,
     @required this.favoriteRepository,
-  }) : assert(listingRepository != null);
+    @required this.valuteRepository,
+  })  : assert(listingRepository != null),
+        assert(favoriteRepository != null),
+        assert(valuteRepository != null);
 
   final ListingRepository listingRepository;
   final FavoriteRepository favoriteRepository;
+  final ValuteRepository valuteRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,9 @@ class App extends StatelessWidget {
         RepositoryProvider<FavoriteRepository>(
           create: (_) => favoriteRepository,
         ),
+        RepositoryProvider<ValuteRepository>(
+          create: (_) => valuteRepository,
+        )
       ],
       child: MultiBlocProvider(
         providers: [
@@ -42,6 +50,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider<TabBloc>(
             create: (_) => TabBloc(),
+          ),
+          BlocProvider<ValuteBloc>(
+            create: (_) => ValuteBloc(valuteRepository: valuteRepository),
           ),
         ],
         child: AppView(),
