@@ -20,6 +20,7 @@ class TextFormPickerField extends StatelessWidget {
       padding: padding,
       child: TextFormField(
         controller: TextEditingController(text: value),
+        readOnly: true,
         onTap: () => showCupertinoModalBottomSheet(
           expand: false,
           context: context,

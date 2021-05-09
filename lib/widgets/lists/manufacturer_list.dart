@@ -1,47 +1,48 @@
 import 'package:emakina/blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:valute_repository/valute_repository.dart';
+import 'package:manufacturer_repository/manufacturer_repository.dart';
 
-class ValuteList extends StatefulWidget {
-  const ValuteList({
+class ManufacturerList extends StatefulWidget {
+  const ManufacturerList({
     @required this.onTap,
   });
 
-  final Function(Valute) onTap;
+  final Function(Manufacturer) onTap;
 
   @override
-  _ValuteListState createState() => _ValuteListState();
+  _ManufacturerListState createState() => _ManufacturerListState();
 }
 
-class _ValuteListState extends State<ValuteList> {
-  ValuteBloc _valuteBloc;
+class _ManufacturerListState extends State<ManufacturerList> {
+  ManufacturerBloc _locationBloc;
 
   @override
   void initState() {
     super.initState();
-    _valuteBloc = context.read<ValuteBloc>()..add(ValuteFetched());
+    _locationBloc = context.read<ManufacturerBloc>()
+      ..add(ManufacturerFetched());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ValuteBloc, ValuteState>(
+    return BlocConsumer<ManufacturerBloc, ManufacturerState>(
       listener: (context, state) {},
       builder: (context, state) {
         switch (state.status) {
-          case ValuteStatus.failure:
+          case ManufacturerStatus.failure:
             return const Center(child: Text('failed to fetch door types'));
-          case ValuteStatus.success:
-            if (state.valutes.isEmpty) {
+          case ManufacturerStatus.success:
+            if (state.manufacturers.isEmpty) {
               return const Center(child: Text('no types'));
             }
             return Container(
               decoration: BoxDecoration(color: Colors.indigo[50]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.valutes.length, (index) {
-                  return _ValuteItem(
-                    valute: state.valutes[index],
+                children: List.generate(state.manufacturers.length, (index) {
+                  return _ManufacturerItem(
+                    location: state.manufacturers[index],
                     onTap: widget.onTap,
                   );
                 }),
@@ -55,33 +56,30 @@ class _ValuteListState extends State<ValuteList> {
   }
 }
 
-class _ValuteItem extends StatelessWidget {
-  final Valute valute;
-  final Function(Valute) onTap;
+class _ManufacturerItem extends StatelessWidget {
+  final Manufacturer location;
+  final Function(Manufacturer) onTap;
 
-  const _ValuteItem({
+  const _ManufacturerItem({
     Key key,
-    @required this.valute,
+    @required this.location,
     @required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(valute),
+      onTap: () => onTap(location),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(valute.name, style: TextStyle(color: Colors.black87)),
-            Text(valute.symbol, style: TextStyle(color: Colors.black87)),
+            Text(location.name, style: TextStyle(color: Colors.black87)),
           ],
         ),
         // child: ListTile(
-        //   title: Text(valute.name, style: TextStyle(color: Colors.black87)),
-        //   trailing:
-        //       Text(valute.symbol, style: TextStyle(color: Colors.black87)),
+        //   title: Text(location.name, style: TextStyle(color: Colors.black87)),
         // ),
       ),
     );

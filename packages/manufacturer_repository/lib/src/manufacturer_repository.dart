@@ -8,9 +8,9 @@ class ManufacturerRepository {
   ManufacturerRepository({@required this.httpClient});
 
   Future<List<Manufacturer>> fetchManufacturers(
-    int startIndex,
-    int limit,
-  ) async {
+      // int startIndex,
+      // int limit,
+      ) async {
     List<Manufacturer> brands = <Manufacturer>[
       Manufacturer(id: 0, name: 'Honda Motor Company'),
       Manufacturer(id: 1, name: 'Fiat Chrysler Automobiles'),

@@ -7,6 +7,15 @@ abstract class CreationWizardEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class CreationWizardStateChanged extends CreationWizardEvent {
+  const CreationWizardStateChanged(this.state);
+
+  final CreationForm state;
+
+  @override
+  List<Object> get props => [state];
+}
+
 class FirstCreationFormStateChanged extends CreationWizardEvent {
   const FirstCreationFormStateChanged(this.state);
 

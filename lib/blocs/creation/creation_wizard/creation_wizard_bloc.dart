@@ -25,9 +25,25 @@ class CreationWizardBloc
       yield _mapSecondCreationFormChangedToState(event, state);
     } else if (event is ThirdCreationFormStateChanged) {
       yield _mapThirdCreationFormChangedToState(event, state);
+    } else if (event is CreationWizardStateChanged) {
+      yield _mapCreationWizardChangedToState(event, state);
     } else if (event is CreationFormSubmitted) {
       yield _mapFormSubmimttedToState(event, state);
     }
+  }
+
+  CreationWizardState _mapCreationWizardChangedToState(
+    CreationWizardStateChanged event,
+    CreationWizardState state,
+  ) {
+    final currentCreationForm = event.state;
+    return state.copyWith(
+        creationForm: currentCreationForm,
+        status: Formz.validate([
+          state.firstCreationWizardForm,
+          state.secondCreationWizardForm,
+          state.thirdCreationWizardForm,
+        ]));
   }
 
   CreationWizardState _mapFirstCreationFormChangedToState(
@@ -78,6 +94,7 @@ class CreationWizardBloc
     );
   }
 
+  // TODO: Check if it is needed.
   CreationWizardState _mapFormSubmimttedToState(
     CreationFormSubmitted event,
     CreationWizardState state,

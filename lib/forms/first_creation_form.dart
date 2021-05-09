@@ -35,6 +35,10 @@ class FirstCreationForm extends StatelessWidget {
                 ],
               ),
             ),
+            const Padding(padding: EdgeInsets.all(8.0)),
+            _MatriculationInput(),
+            const Padding(padding: EdgeInsets.all(8.0)),
+            _LocationInput(),
           ],
         ),
       ),
@@ -51,6 +55,7 @@ class _TitleInput extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: TextFormField(
+            initialValue: state.title.value,
             onChanged: (String title) => context
                 .read<FirstCreationFormBloc>()
                 .add(CreationTitleChanged(title: title)),
@@ -81,6 +86,7 @@ class _DescriptionInput extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: TextFormField(
+            initialValue: state.description.value,
             onChanged: (String description) => context
                 .read<FirstCreationFormBloc>()
                 .add(CreationDescriptionChanged(description: description)),
@@ -119,6 +125,8 @@ class _PriceInput extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: TextFormField(
+            initialValue:
+                state.price.value != null ? state.price.value.toString() : null,
             onChanged: (String price) => context
                 .read<FirstCreationFormBloc>()
                 .add(CreationPriceChanged(price: _parse(price))),
@@ -155,13 +163,68 @@ class _ValuteInput extends StatelessWidget {
       builder: (context, state) {
         return TextFormPickerField(
           value: context.read<FirstCreationFormBloc>().state.valute.value.name,
-          labelText: "Valute",
+          labelText: 'Valute',
           padding: EdgeInsets.only(left: 8.0),
           picker: ValuteList(
             onTap: (valute) {
               context
                   .read<FirstCreationFormBloc>()
                   .add(CreationValuteChanged(valute: valute));
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _MatriculationInput extends StatelessWidget {
+  String _value(BuildContext context) {
+    final value =
+        context.read<FirstCreationFormBloc>().state.matriculation.value.year;
+    if (value != null) return value.toString();
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FirstCreationFormBloc, FirstCreationFormState>(
+      buildWhen: (previous, current) =>
+          previous.matriculation != current.matriculation,
+      builder: (context, state) {
+        return TextFormPickerField(
+          value: _value(context),
+          labelText: 'Matriculation',
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          picker: AppYearPicker(
+            onConfirm: (matriculation) {
+              context.read<FirstCreationFormBloc>().add(
+                  CreationMatriculationChanged(matriculation: matriculation));
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _LocationInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FirstCreationFormBloc, FirstCreationFormState>(
+      buildWhen: (previous, current) => previous.location != current.location,
+      builder: (context, state) {
+        return TextFormPickerField(
+          value:
+              context.read<FirstCreationFormBloc>().state.location.value.name,
+          labelText: 'Location',
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          picker: LocationList(
+            onTap: (location) {
+              context
+                  .read<FirstCreationFormBloc>()
+                  .add(CreationLocationChanged(location: location));
               Navigator.pop(context);
             },
           ),
