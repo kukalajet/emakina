@@ -1,48 +1,48 @@
 import 'package:emakina/blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manufacturer_repository/manufacturer_repository.dart';
+import 'package:vehicle_type_repository/vehicle_type_repository.dart';
 
-class ManufacturerList extends StatefulWidget {
-  const ManufacturerList({
+class VehicleTypeList extends StatefulWidget {
+  const VehicleTypeList({
     @required this.onTap,
   });
 
-  final Function(Manufacturer) onTap;
+  final Function(VehicleType) onTap;
 
   @override
-  _ManufacturerListState createState() => _ManufacturerListState();
+  _VehicleTypeListState createState() => _VehicleTypeListState();
 }
 
-class _ManufacturerListState extends State<ManufacturerList> {
-  ManufacturerBloc _manufacturerBloc;
+class _VehicleTypeListState extends State<VehicleTypeList> {
+  VehicleTypeBloc _vehicleTypeBloc;
 
   @override
   void initState() {
     super.initState();
-    _manufacturerBloc = context.read<ManufacturerBloc>()
-      ..add(ManufacturerFetched());
+    _vehicleTypeBloc = context.read<VehicleTypeBloc>()
+      ..add(VehicleTypeFetched());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ManufacturerBloc, ManufacturerState>(
+    return BlocConsumer<VehicleTypeBloc, VehicleTypeState>(
       listener: (context, state) {},
       builder: (context, state) {
         switch (state.status) {
-          case ManufacturerStatus.failure:
+          case VehicleTypeStatus.failure:
             return const Center(child: Text('failed to fetch door types'));
-          case ManufacturerStatus.success:
-            if (state.manufacturers.isEmpty) {
+          case VehicleTypeStatus.success:
+            if (state.types.isEmpty) {
               return const Center(child: Text('no types'));
             }
             return Container(
               decoration: BoxDecoration(color: Colors.indigo[50]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.manufacturers.length, (index) {
-                  return _ManufacturerItem(
-                    manufacturer: state.manufacturers[index],
+                children: List.generate(state.types.length, (index) {
+                  return _VehicleTypeItem(
+                    vehicleType: state.types[index],
                     onTap: widget.onTap,
                   );
                 }),
@@ -56,26 +56,26 @@ class _ManufacturerListState extends State<ManufacturerList> {
   }
 }
 
-class _ManufacturerItem extends StatelessWidget {
-  final Manufacturer manufacturer;
-  final Function(Manufacturer) onTap;
+class _VehicleTypeItem extends StatelessWidget {
+  final VehicleType vehicleType;
+  final Function(VehicleType) onTap;
 
-  const _ManufacturerItem({
+  const _VehicleTypeItem({
     Key key,
-    @required this.manufacturer,
+    @required this.vehicleType,
     @required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(manufacturer),
+      onTap: () => onTap(vehicleType),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(manufacturer.name, style: TextStyle(color: Colors.black87)),
+            Text(vehicleType.name, style: TextStyle(color: Colors.black87)),
           ],
         ),
       ),

@@ -8,7 +8,10 @@ import 'package:listing_repository/listing_repository.dart';
 import 'package:favorite_repository/favorite_repository.dart';
 import 'package:location_repository/location_repository.dart';
 import 'package:manufacturer_repository/manufacturer_repository.dart';
+import 'package:model_repository/model_repository.dart';
+import 'package:plate_repository/plate_repository.dart';
 import 'package:valute_repository/valute_repository.dart';
+import 'package:vehicle_type_repository/vehicle_type_repository.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -18,16 +21,25 @@ class App extends StatelessWidget {
     @required this.valuteRepository,
     @required this.locationRepository,
     @required this.manufacturerRepository,
+    @required this.modelRepository,
+    @required this.vehicleTypeRepository,
+    @required this.plateRepository,
   })  : assert(listingRepository != null),
         assert(favoriteRepository != null),
         assert(valuteRepository != null),
-        assert(manufacturerRepository != null);
+        assert(manufacturerRepository != null),
+        assert(modelRepository != null),
+        assert(plateRepository != null),
+        assert(vehicleTypeRepository != null);
 
   final ListingRepository listingRepository;
   final FavoriteRepository favoriteRepository;
   final ValuteRepository valuteRepository;
   final LocationRepository locationRepository;
   final ManufacturerRepository manufacturerRepository;
+  final ModelRepository modelRepository;
+  final PlateRepository plateRepository;
+  final TypeRepository vehicleTypeRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +59,15 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider<ManufacturerRepository>(
           create: (_) => manufacturerRepository,
+        ),
+        RepositoryProvider<ModelRepository>(
+          create: (_) => modelRepository,
+        ),
+        RepositoryProvider<TypeRepository>(
+          create: (_) => vehicleTypeRepository,
+        ),
+        RepositoryProvider<PlateRepository>(
+          create: (_) => plateRepository,
         )
       ],
       child: MultiBlocProvider(
@@ -74,6 +95,16 @@ class App extends StatelessWidget {
           BlocProvider<ManufacturerBloc>(
             create: (_) => ManufacturerBloc(
                 manufacturerRepository: manufacturerRepository),
+          ),
+          BlocProvider<ModelBloc>(
+            create: (_) => ModelBloc(modelRepository: modelRepository),
+          ),
+          BlocProvider<VehicleTypeBloc>(
+            create: (_) =>
+                VehicleTypeBloc(typeRepository: vehicleTypeRepository),
+          ),
+          BlocProvider<PlateBloc>(
+            create: (_) => PlateBloc(plateRepository: plateRepository),
           ),
         ],
         child: AppView(),

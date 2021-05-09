@@ -6,3 +6,6 @@ export 'creation/creation.dart';
 export 'valute/valute.dart';
 export 'location/location.dart';
 export 'manufacturer/manufacturer.dart';
+export 'model/model.dart';
+export 'vehicle_type/vehicle_type.dart';
+export 'plate/plate.dart';

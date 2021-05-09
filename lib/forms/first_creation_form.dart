@@ -125,8 +125,9 @@ class _PriceInput extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: TextFormField(
-            initialValue:
-                state.price.value != null ? state.price.value.toString() : null,
+            initialValue: state.price.value != null
+                ? state.price.value.toStringAsFixed(0)
+                : null,
             onChanged: (String price) => context
                 .read<FirstCreationFormBloc>()
                 .add(CreationPriceChanged(price: _parse(price))),

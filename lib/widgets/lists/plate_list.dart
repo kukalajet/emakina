@@ -1,48 +1,47 @@
 import 'package:emakina/blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manufacturer_repository/manufacturer_repository.dart';
+import 'package:plate_repository/plate_repository.dart';
 
-class ManufacturerList extends StatefulWidget {
-  const ManufacturerList({
+class PlateList extends StatefulWidget {
+  const PlateList({
     @required this.onTap,
   });
 
-  final Function(Manufacturer) onTap;
+  final Function(Plate) onTap;
 
   @override
-  _ManufacturerListState createState() => _ManufacturerListState();
+  _PlateListState createState() => _PlateListState();
 }
 
-class _ManufacturerListState extends State<ManufacturerList> {
-  ManufacturerBloc _manufacturerBloc;
+class _PlateListState extends State<PlateList> {
+  PlateBloc _plateBloc;
 
   @override
   void initState() {
     super.initState();
-    _manufacturerBloc = context.read<ManufacturerBloc>()
-      ..add(ManufacturerFetched());
+    _plateBloc = context.read<PlateBloc>()..add(PlateFetched());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ManufacturerBloc, ManufacturerState>(
+    return BlocConsumer<PlateBloc, PlateState>(
       listener: (context, state) {},
       builder: (context, state) {
         switch (state.status) {
-          case ManufacturerStatus.failure:
+          case PlateStatus.failure:
             return const Center(child: Text('failed to fetch door types'));
-          case ManufacturerStatus.success:
-            if (state.manufacturers.isEmpty) {
+          case PlateStatus.success:
+            if (state.plates.isEmpty) {
               return const Center(child: Text('no types'));
             }
             return Container(
               decoration: BoxDecoration(color: Colors.indigo[50]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.manufacturers.length, (index) {
-                  return _ManufacturerItem(
-                    manufacturer: state.manufacturers[index],
+                children: List.generate(state.plates.length, (index) {
+                  return _PlateItem(
+                    plate: state.plates[index],
                     onTap: widget.onTap,
                   );
                 }),
@@ -56,26 +55,26 @@ class _ManufacturerListState extends State<ManufacturerList> {
   }
 }
 
-class _ManufacturerItem extends StatelessWidget {
-  final Manufacturer manufacturer;
-  final Function(Manufacturer) onTap;
+class _PlateItem extends StatelessWidget {
+  final Plate plate;
+  final Function(Plate) onTap;
 
-  const _ManufacturerItem({
+  const _PlateItem({
     Key key,
-    @required this.manufacturer,
+    @required this.plate,
     @required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(manufacturer),
+      onTap: () => onTap(plate),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(manufacturer.name, style: TextStyle(color: Colors.black87)),
+            Text(plate.name, style: TextStyle(color: Colors.black87)),
           ],
         ),
       ),
