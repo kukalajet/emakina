@@ -19,10 +19,12 @@ class ThirdCreationFormBloc
   ) async* {
     if (event is CreationColorChanged) {
       yield _mapCreationColorChangedToState(event, state);
-    } else if (event is CreationFuelsChanged) {
+    } else if (event is CreationFuelChanged) {
       yield _mapCreationFuelsChangedToState(event, state);
-    } else if (event is CreationImagesChanged) {
-      yield _mapCreationImagesChangedToState(event, state);
+    } else if (event is CreationImageAdded) {
+      yield _mapCreationImageAddedToState(event, state);
+    } else if (event is CreationImageRemoved) {
+      yield _mapCreationImageRemovedToState(event, state);
     } else if (event is CreationTransmissionChanged) {
       yield _mapCreationTransmissionChangedToState(event, state);
     }
@@ -37,7 +39,7 @@ class ThirdCreationFormBloc
       color: color,
       status: Formz.validate([
         color,
-        state.fuels,
+        state.fuel,
         state.images,
         state.transmission,
       ]),
@@ -45,31 +47,55 @@ class ThirdCreationFormBloc
   }
 
   ThirdCreationFormState _mapCreationFuelsChangedToState(
-    CreationFuelsChanged event,
+    CreationFuelChanged event,
     ThirdCreationFormState state,
   ) {
-    final fuels = FuelsField.dirty(event.fuels);
+    final fuel = FuelField.dirty(event.fuel);
     return state.copyWith(
-      fuels: fuels,
+      fuel: fuel,
       status: Formz.validate([
         state.color,
-        fuels,
+        fuel,
         state.images,
         state.transmission,
       ]),
     );
   }
 
-  ThirdCreationFormState _mapCreationImagesChangedToState(
-    CreationImagesChanged event,
+  ThirdCreationFormState _mapCreationImageAddedToState(
+    CreationImageAdded event,
     ThirdCreationFormState state,
   ) {
-    final images = ImagesField.dirty(event.images);
+    final image = event.image;
+    final stateImages = state.images.value;
+    final currentImages =
+        List.from(stateImages != null ? stateImages : []).cast<String>();
+    final images = ImagesField.dirty(currentImages..add(image));
     return state.copyWith(
       images: images,
       status: Formz.validate([
         state.color,
-        state.fuels,
+        state.fuel,
+        images,
+        state.transmission,
+      ]),
+    );
+  }
+
+  ThirdCreationFormState _mapCreationImageRemovedToState(
+    CreationImageRemoved event,
+    ThirdCreationFormState state,
+  ) {
+    final image = event.image;
+    final stateImages = state.images.value;
+    final currentImages =
+        List.from(stateImages != null ? stateImages : []).cast<String>();
+    final images = ImagesField.dirty(currentImages..remove(image));
+    return state.copyWith(
+      images: images,
+      status: Formz.validate([
+        state.color,
+        state.fuel,
         images,
         state.transmission,
       ]),
@@ -85,7 +111,7 @@ class ThirdCreationFormBloc
       transmission: transmission,
       status: Formz.validate([
         state.color,
-        state.fuels,
+        state.fuel,
         state.images,
         transmission,
       ]),

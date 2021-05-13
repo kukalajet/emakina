@@ -1,8 +1,11 @@
+import 'package:color_repository/color_repository.dart';
 import 'package:emakina/blocs/manufacturer/manufacturer_bloc.dart';
+import 'package:emakina/blocs/transmission/transmission.dart';
 import 'package:emakina/screens/home_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emakina/blocs/blocs.dart';
+import 'package:fuel_repository/fuel_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:listing_repository/listing_repository.dart';
 import 'package:favorite_repository/favorite_repository.dart';
@@ -10,6 +13,7 @@ import 'package:location_repository/location_repository.dart';
 import 'package:manufacturer_repository/manufacturer_repository.dart';
 import 'package:model_repository/model_repository.dart';
 import 'package:plate_repository/plate_repository.dart';
+import 'package:transmission_repository/transmission_repository.dart';
 import 'package:valute_repository/valute_repository.dart';
 import 'package:vehicle_type_repository/vehicle_type_repository.dart';
 
@@ -24,13 +28,19 @@ class App extends StatelessWidget {
     @required this.modelRepository,
     @required this.vehicleTypeRepository,
     @required this.plateRepository,
+    @required this.transmissionRepository,
+    @required this.fuelRepository,
+    @required this.colorRepository,
   })  : assert(listingRepository != null),
         assert(favoriteRepository != null),
         assert(valuteRepository != null),
         assert(manufacturerRepository != null),
         assert(modelRepository != null),
         assert(plateRepository != null),
-        assert(vehicleTypeRepository != null);
+        assert(vehicleTypeRepository != null),
+        assert(transmissionRepository != null),
+        assert(fuelRepository != null),
+        assert(colorRepository != null);
 
   final ListingRepository listingRepository;
   final FavoriteRepository favoriteRepository;
@@ -40,6 +50,9 @@ class App extends StatelessWidget {
   final ModelRepository modelRepository;
   final PlateRepository plateRepository;
   final TypeRepository vehicleTypeRepository;
+  final TransmissionRepository transmissionRepository;
+  final FuelRepository fuelRepository;
+  final ColorRepository colorRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +81,15 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider<PlateRepository>(
           create: (_) => plateRepository,
+        ),
+        RepositoryProvider<TransmissionRepository>(
+          create: (_) => transmissionRepository,
+        ),
+        RepositoryProvider<FuelRepository>(
+          create: (_) => fuelRepository,
+        ),
+        RepositoryProvider<ColorRepository>(
+          create: (_) => colorRepository,
         )
       ],
       child: MultiBlocProvider(
@@ -105,6 +127,16 @@ class App extends StatelessWidget {
           ),
           BlocProvider<PlateBloc>(
             create: (_) => PlateBloc(plateRepository: plateRepository),
+          ),
+          BlocProvider<TransmissionBloc>(
+            create: (_) => TransmissionBloc(
+                transmissionRepository: transmissionRepository),
+          ),
+          BlocProvider<FuelBloc>(
+            create: (_) => FuelBloc(fuelRepository: fuelRepository),
+          ),
+          BlocProvider<ColorBloc>(
+            create: (_) => ColorBloc(colorRepository: colorRepository),
           ),
         ],
         child: AppView(),

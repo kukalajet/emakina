@@ -70,8 +70,11 @@ class _ModelInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SecondCreationFormBloc, SecondCreationFormState>(
-      buildWhen: (previous, current) =>
-          previous.manufacturer != current.manufacturer,
+      buildWhen: (previous, current) {
+        if (previous.manufacturer != current.manufacturer) return true;
+        if (previous.model != current.model) return true;
+        return false;
+      },
       builder: (context, state) {
         final int manufacturerId = state.manufacturer.value.id;
 

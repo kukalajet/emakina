@@ -4,28 +4,28 @@ class ThirdCreationFormState extends Equatable {
   const ThirdCreationFormState({
     this.status = FormzStatus.pure,
     this.color = const ColorField.pure(),
-    this.fuels = const FuelsField.pure(),
+    this.fuel = const FuelField.pure(),
     this.images = const ImagesField.pure(),
     this.transmission = const TransmissionField.pure(),
   });
 
   final FormzStatus status;
   final ColorField color;
-  final FuelsField fuels;
+  final FuelField fuel;
   final ImagesField images;
   final TransmissionField transmission;
 
   ThirdCreationFormState copyWith({
     FormzStatus status,
     ColorField color,
-    FuelsField fuels,
+    FuelField fuel,
     ImagesField images,
     TransmissionField transmission,
   }) {
     return ThirdCreationFormState(
       status: status ?? this.status,
       color: color ?? this.color,
-      fuels: fuels ?? this.fuels,
+      fuel: fuel ?? this.fuel,
       images: images ?? this.images,
       transmission: transmission ?? this.transmission,
     );
@@ -37,7 +37,7 @@ class ThirdCreationFormState extends Equatable {
   List<Object> get props => [
         status,
         color,
-        fuels,
+        fuel,
         images,
         transmission,
       ];

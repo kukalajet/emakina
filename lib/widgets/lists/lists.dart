@@ -6,3 +6,6 @@ export 'manufacturer_list.dart';
 export 'model_list.dart';
 export 'vehicle_type_list.dart';
 export 'plate_list.dart';
+export 'transmission_list.dart';
+export 'fuel_list.dart';
+export 'color_list.dart';

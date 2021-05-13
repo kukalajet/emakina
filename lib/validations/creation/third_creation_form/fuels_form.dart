@@ -1,18 +1,16 @@
 import 'package:formz/formz.dart';
 import 'package:fuel_repository/fuel_repository.dart';
 
-enum FuelsFieldValidationError { invalid }
+enum FuelFieldValidationError { invalid }
 
-class FuelsField extends FormzInput<List<Fuel>, FuelsFieldValidationError> {
-  const FuelsField.pure() : super.pure(null);
-  const FuelsField.dirty(List<Fuel> value) : super.dirty(value);
+class FuelField extends FormzInput<Fuel, FuelFieldValidationError> {
+  const FuelField.pure() : super.pure(const Fuel(id: null, type: null));
+  const FuelField.dirty(Fuel value) : super.dirty(value);
 
   @override
-  FuelsFieldValidationError validator(List<Fuel> value) {
-    for (final fuel in value) {
-      if (fuel.id == null || fuel.type == null)
-        return FuelsFieldValidationError.invalid;
-    }
+  FuelFieldValidationError validator(Fuel value) {
+    if (value.id == null || value.type == null)
+      return FuelFieldValidationError.invalid;
 
     return null;
   }

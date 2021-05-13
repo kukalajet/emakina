@@ -19,6 +19,7 @@ dependencies:
   flutter_secure_storage: ^4.1.0
   modal_bottom_sheet: ^2.0.0
   formz: ^0.4.0
+  image_picker: ^0.7.5
   listing_repository:
     path: packages/listing_repository
   favorite_repository:

@@ -112,7 +112,7 @@ class _DescriptionInput extends StatelessWidget {
 
 class _PriceInput extends StatelessWidget {
   double _parse(String price) {
-    if (price.isEmpty) return 0;
+    if (price.isEmpty) return null;
     return double.parse(price);
   }
 

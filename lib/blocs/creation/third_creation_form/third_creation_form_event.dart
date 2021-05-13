@@ -16,22 +16,31 @@ class CreationColorChanged extends ThirdCreationFormEvent {
   List<Object> get props => [color];
 }
 
-class CreationFuelsChanged extends ThirdCreationFormEvent {
-  const CreationFuelsChanged({this.fuels});
+class CreationFuelChanged extends ThirdCreationFormEvent {
+  const CreationFuelChanged({this.fuel});
 
-  final List<Fuel> fuels;
+  final Fuel fuel;
 
   @override
-  List<Object> get props => [fuels];
+  List<Object> get props => [fuel];
 }
 
-class CreationImagesChanged extends ThirdCreationFormEvent {
-  const CreationImagesChanged({this.images});
+class CreationImageAdded extends ThirdCreationFormEvent {
+  const CreationImageAdded({this.image});
 
-  final List<String> images;
+  final String image;
 
   @override
-  List<Object> get props => [images];
+  List<Object> get props => [image];
+}
+
+class CreationImageRemoved extends ThirdCreationFormEvent {
+  const CreationImageRemoved({this.image});
+
+  final String image;
+
+  @override
+  List<Object> get props => [image];
 }
 
 class CreationTransmissionChanged extends ThirdCreationFormEvent {

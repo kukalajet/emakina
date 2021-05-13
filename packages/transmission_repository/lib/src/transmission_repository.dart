@@ -8,9 +8,9 @@ class TransmissionRepository {
   final http.Client httpClient;
 
   /// TODO: Types should be retrieved from shared prefs, if nothing is there, we should ask the BE.
-  Future<List<Transmission>> fetchLocations() async {
+  Future<List<Transmission>> fetchTransmissions() async {
     List<Transmission> transmissions = <Transmission>[
-      Transmission(id: 0, type: 'Tirana'),
+      Transmission(id: 0, type: 'Manual'),
       Transmission(id: 0, type: 'Durres'),
     ];
 

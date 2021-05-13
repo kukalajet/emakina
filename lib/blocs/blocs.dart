@@ -9,3 +9,6 @@ export 'manufacturer/manufacturer.dart';
 export 'model/model.dart';
 export 'vehicle_type/vehicle_type.dart';
 export 'plate/plate.dart';
+export 'transmission/transmission.dart';
+export 'fuel/fuel.dart';
+export 'color/color.dart';

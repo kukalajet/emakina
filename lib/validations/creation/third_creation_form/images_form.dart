@@ -8,6 +8,8 @@ class ImagesField extends FormzInput<List<String>, ImagesFieldValidationError> {
 
   @override
   ImagesFieldValidationError validator(List<String> value) {
+    if (value == null) return ImagesFieldValidationError.invalid;
+    if (value.isEmpty) return ImagesFieldValidationError.invalid;
     for (final uri in value) {
       if (uri == null || uri.isEmpty) return ImagesFieldValidationError.invalid;
     }

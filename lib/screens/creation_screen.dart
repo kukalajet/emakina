@@ -24,7 +24,7 @@ class CreationScreen extends StatelessWidget {
       case CreationForm.SecondForm:
         return SecondCreationForm();
       case CreationForm.ThirdForm:
-        return FirstCreationForm();
+        return ThirdCreationForm();
       default:
         return SizedBox();
     }
@@ -47,11 +47,24 @@ class CreationScreen extends StatelessWidget {
         return () {
           context
               .read<CreationWizardBloc>()
-              .add(CreationWizardStateChanged(CreationForm.SecondForm));
+              .add(CreationWizardStateChanged(CreationForm.ThirdForm));
         };
       default:
         return null;
     }
+  }
+
+  Function _getOnSubmitPressed(
+    BuildContext context,
+    CreationWizardState state,
+  ) {
+    if (!state.thirdCreationWizardForm.value.valid) return null;
+    return () {
+      context.read<CreationWizardBloc>().add(CreationFormSubmitted());
+
+      // TODO: Call this only after submission finished.
+      Navigator.of(context).pop();
+    };
   }
 
   @override
@@ -74,8 +87,8 @@ class CreationScreen extends StatelessWidget {
       child: Material(
         child: CupertinoScaffold(
           transitionBackgroundColor: Colors.white,
-          body: BlocConsumer<CreationWizardBloc, CreationWizardState>(
-            listener: (context, state) {},
+          body: BlocBuilder<CreationWizardBloc, CreationWizardState>(
+            buildWhen: (previous, current) => previous != current,
             builder: (context, state) {
               return Scaffold(
                 resizeToAvoidBottomInset: false,
@@ -89,7 +102,7 @@ class CreationScreen extends StatelessWidget {
                           CreationWizardStateChanged(CreationForm.SecondForm));
                   },
                   onNextPressed: _getOnNextPressed(context, state),
-                  onSubmitPressed: () {},
+                  onSubmitPressed: _getOnSubmitPressed(context, state),
                   showBack: state.creationForm != CreationForm.FirstForm,
                   showSubmit: state.creationForm == CreationForm.ThirdForm,
                 ),
