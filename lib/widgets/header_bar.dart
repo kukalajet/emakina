@@ -30,7 +30,7 @@ class HeaderBar extends StatelessWidget {
         padding: const EdgeInsets.only(right: 8.0),
         child: IconButton(
           icon: Icon(
-            Icons.search_rounded,
+            Icons.person_rounded,
             color: Colors.red[900],
             size: 32.0,
           ),

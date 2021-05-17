@@ -35,16 +35,15 @@ class _FuelListState extends State<FuelList> {
             if (state.fuels.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.fuels.length, (index) {
-                  return _FuelItem(
-                    fuel: state.fuels[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _FuelItem(
+                  fuel: state.fuels[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.fuels.length,
               ),
             );
           default:
@@ -67,20 +66,9 @@ class _FuelItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      title: Text(fuel.type, style: Theme.of(context).textTheme.headline6),
       onTap: () => onTap(fuel),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(fuel.type, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-        // child: ListTile(
-        //   title: Text(fuel.name, style: TextStyle(color: Colors.black87)),
-        // ),
-      ),
     );
   }
 }

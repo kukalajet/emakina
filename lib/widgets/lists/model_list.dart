@@ -38,16 +38,15 @@ class _ModelListState extends State<ModelList> {
             if (state.models.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.models.length, (index) {
-                  return _ModelItem(
-                    model: state.models[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _ModelItem(
+                  model: state.models[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.models.length,
               ),
             );
           default:
@@ -70,17 +69,9 @@ class _ModelItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      title: Text(model.name, style: Theme.of(context).textTheme.headline6),
       onTap: () => onTap(model),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(model.name, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-      ),
     );
   }
 }

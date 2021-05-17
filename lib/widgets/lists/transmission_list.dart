@@ -36,16 +36,15 @@ class _TransmissionListState extends State<TransmissionList> {
             if (state.transmissions.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.transmissions.length, (index) {
-                  return _TransmissionItem(
-                    transmission: state.transmissions[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _TransmissionItem(
+                  transmission: state.transmissions[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.transmissions.length,
               ),
             );
           default:
@@ -68,19 +67,11 @@ class _TransmissionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(transmission),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(transmission.type, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-        // child: ListTile(
-        //   title: Text(transmission.name, style: TextStyle(color: Colors.black87)),
-        // ),
+    return ListTile(
+      title:
+          Text(transmission.type, style: Theme.of(context).textTheme.headline5),
+      onTap: () => onTap(
+        transmission,
       ),
     );
   }

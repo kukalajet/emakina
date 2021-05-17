@@ -1,4 +1,5 @@
 import 'package:emakina/blocs/blocs.dart';
+import 'package:emakina/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:color_repository/color_repository.dart';
@@ -35,16 +36,15 @@ class _ColorListState extends State<ColorList> {
             if (state.colors.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.colors.length, (index) {
-                  return _ColorItem(
-                    color: state.colors[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _ColorItem(
+                  color: state.colors[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.colors.length,
               ),
             );
           default:
@@ -67,20 +67,10 @@ class _ColorItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      title: Text(color.name, style: Theme.of(context).textTheme.headline6),
+      trailing: Icon(Icons.circle, color: HexColor.fromHex(color.code)),
       onTap: () => onTap(color),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(color.code, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-        // child: ListTile(
-        //   title: Text(color.name, style: TextStyle(color: Colors.black87)),
-        // ),
-      ),
     );
   }
 }

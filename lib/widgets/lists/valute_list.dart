@@ -35,16 +35,15 @@ class _ValuteListState extends State<ValuteList> {
             if (state.valutes.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.valutes.length, (index) {
-                  return _ValuteItem(
-                    valute: state.valutes[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemCount: state.valutes.length,
+                itemBuilder: (_, index) => _ValuteItem(
+                  valute: state.valutes[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
               ),
             );
           default:
@@ -67,23 +66,16 @@ class _ValuteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(valute),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(valute.name, style: TextStyle(color: Colors.black87)),
-            Text(valute.symbol, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-        // child: ListTile(
-        //   title: Text(valute.name, style: TextStyle(color: Colors.black87)),
-        //   trailing:
-        //       Text(valute.symbol, style: TextStyle(color: Colors.black87)),
-        // ),
+    return ListTile(
+      title: Text(
+        valute.name,
+        style: Theme.of(context).textTheme.headline6,
       ),
+      trailing: Text(
+        valute.symbol,
+        style: Theme.of(context).textTheme.headline6,
+      ),
+      onTap: () => onTap(valute),
     );
   }
 }

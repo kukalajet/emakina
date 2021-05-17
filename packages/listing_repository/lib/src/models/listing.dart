@@ -14,12 +14,14 @@ import 'package:vehicle_type_repository/vehicle_type_repository.dart';
 class Listing extends Equatable {
   const Listing({
     @required this.id,
+    @required this.title,
+    @required this.description,
     @required this.type,
     @required this.transmission,
     @required this.year,
     @required this.mileage,
-    @required this.fuels,
-    @required this.urls,
+    @required this.fuel,
+    @required this.images,
     @required this.plate,
     @required this.color,
     @required this.location,
@@ -30,12 +32,14 @@ class Listing extends Equatable {
   });
 
   final int id;
+  final String title;
+  final String description;
   final VehicleType type;
   final Transmission transmission;
   final int year;
   final int mileage;
-  final List<Fuel> fuels;
-  final List<String> urls;
+  final Fuel fuel;
+  final List<String> images;
   final Plate plate;
   final Color color;
   final Location location;
@@ -46,12 +50,14 @@ class Listing extends Equatable {
 
   Listing copyWith({
     int id,
+    String title,
+    String description,
     VehicleType type,
     Transmission transmission,
     int year,
     int mileage,
     List<Fuel> fuels,
-    List<String> urls,
+    List<String> images,
     Plate plate,
     Color color,
     Location location,
@@ -62,12 +68,14 @@ class Listing extends Equatable {
   }) {
     return Listing(
       id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
       type: type ?? this.type,
       transmission: transmission ?? this.transmission,
       mileage: mileage ?? this.mileage,
       year: year ?? this.year,
-      fuels: fuels ?? this.fuels,
-      urls: urls ?? this.urls,
+      fuel: fuels ?? this.fuel,
+      images: images ?? this.images,
       plate: plate ?? this.plate,
       color: color ?? this.color,
       location: location ?? this.location,
@@ -80,18 +88,19 @@ class Listing extends Equatable {
 
   @override
   String toString() =>
-      '{ "id": $id, "type": $type, "transmission": $transmission, "year": $year, "mileage": $mileage, "fuels": $fuels, "urls": ${jsonEncode(urls)}, "plate": $plate, "color": $color, "location": $location, "manufacturer": $manufacturer, "model": $model, "price": $price, "isFavorite": $isFavorite }';
+      '{ "id": $id, "type": $type, "transmission": $transmission, "year": $year, "mileage": $mileage, "fuel": $fuel, "images": ${jsonEncode(images)}, "plate": $plate, "color": $color, "location": $location, "manufacturer": $manufacturer, "model": $model, "price": $price, "isFavorite": $isFavorite }';
 
   factory Listing.fromJson(Map<String, dynamic> json) {
     return Listing(
       id: json['id'],
+      title: json['title'],
+      description: json['description'],
       type: VehicleType.fromJson(json['type']),
       transmission: Transmission.fromJson(json['transmission']),
       mileage: json['mileage'],
       year: json['year'],
-      fuels:
-          (json['fuels'] as List).map((fuel) => Fuel.fromJson(fuel)).toList(),
-      urls: (json['urls'] as List).map((url) => url as String).toList(),
+      fuel: Fuel.fromJson(json['fuel']),
+      images: (json['images'] as List).map((url) => url as String).toList(),
       plate: Plate.fromJson(json['plate']),
       color: Color.fromJson(json['color']),
       location: Location.fromJson(json['location']),
@@ -108,8 +117,8 @@ class Listing extends Equatable {
         type,
         transmission,
         mileage,
-        fuels,
-        urls,
+        fuel,
+        images,
         plate,
         color,
         location,

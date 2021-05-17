@@ -35,16 +35,15 @@ class _PlateListState extends State<PlateList> {
             if (state.plates.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.plates.length, (index) {
-                  return _PlateItem(
-                    plate: state.plates[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _PlateItem(
+                  plate: state.plates[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.plates.length,
               ),
             );
           default:
@@ -67,17 +66,9 @@ class _PlateItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      title: Text(plate.name, style: Theme.of(context).textTheme.headline6),
       onTap: () => onTap(plate),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(plate.name, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-      ),
     );
   }
 }

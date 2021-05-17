@@ -36,16 +36,15 @@ class _VehicleTypeListState extends State<VehicleTypeList> {
             if (state.types.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.types.length, (index) {
-                  return _VehicleTypeItem(
-                    vehicleType: state.types[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _VehicleTypeItem(
+                  type: state.types[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.types.length,
               ),
             );
           default:
@@ -57,28 +56,20 @@ class _VehicleTypeListState extends State<VehicleTypeList> {
 }
 
 class _VehicleTypeItem extends StatelessWidget {
-  final VehicleType vehicleType;
+  final VehicleType type;
   final Function(VehicleType) onTap;
 
   const _VehicleTypeItem({
     Key key,
-    @required this.vehicleType,
+    @required this.type,
     @required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(vehicleType),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(vehicleType.name, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-      ),
+    return ListTile(
+      title: Text(type.name, style: Theme.of(context).textTheme.headline6),
+      onTap: () => onTap(type),
     );
   }
 }

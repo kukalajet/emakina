@@ -7,12 +7,14 @@ class TextFormPickerField extends StatelessWidget {
     @required this.labelText,
     @required this.picker,
     this.padding,
+    this.icon,
   });
 
   final String value;
   final String labelText;
   final Widget picker;
   final EdgeInsets padding;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class TextFormPickerField extends StatelessWidget {
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.red.shade800, width: 2.0),
           ),
+          prefixIcon: icon != null ? Icon(icon) : null,
         ),
       ),
     );

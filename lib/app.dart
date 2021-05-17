@@ -174,10 +174,11 @@ TextTheme _buildTextTheme(BuildContext context) {
       textStyle: Theme.of(context).textTheme.headline5,
       fontWeight: FontWeight.w600,
     ),
-    headline6: GoogleFonts.roboto(
+    headline6: GoogleFonts.lato(
       textStyle: Theme.of(context).textTheme.headline6,
       fontWeight: FontWeight.w600,
       color: Colors.black87,
+      letterSpacing: -0.25,
     ),
     subtitle1: GoogleFonts.roboto(
       color: Colors.black54,

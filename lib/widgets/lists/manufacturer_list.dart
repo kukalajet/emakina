@@ -36,16 +36,15 @@ class _ManufacturerListState extends State<ManufacturerList> {
             if (state.manufacturers.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.manufacturers.length, (index) {
-                  return _ManufacturerItem(
-                    manufacturer: state.manufacturers[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _ManufacturerItem(
+                  manufacturer: state.manufacturers[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.manufacturers.length,
               ),
             );
           default:
@@ -68,17 +67,10 @@ class _ManufacturerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      title:
+          Text(manufacturer.name, style: Theme.of(context).textTheme.headline6),
       onTap: () => onTap(manufacturer),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(manufacturer.name, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-      ),
     );
   }
 }

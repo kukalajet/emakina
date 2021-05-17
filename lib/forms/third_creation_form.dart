@@ -50,6 +50,7 @@ class _TransmissionInput extends StatelessWidget {
               .type,
           labelText: 'Transmission',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x2699, fontFamily: 'MaterialIcons'),
           picker: TransmissionList(
             onTap: (transmission) {
               context
@@ -74,6 +75,7 @@ class _FuelInput extends StatelessWidget {
           value: context.read<ThirdCreationFormBloc>().state.fuel.value.type,
           labelText: 'Fuel',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x26FD, fontFamily: 'MaterialIcons'),
           picker: FuelList(
             onTap: (fuel) {
               context
@@ -98,6 +100,7 @@ class _ColorInput extends StatelessWidget {
           value: context.read<ThirdCreationFormBloc>().state.color.value.name,
           labelText: 'Color',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F308, fontFamily: 'MaterialIcons'),
           picker: ColorList(
             onTap: (color) {
               context

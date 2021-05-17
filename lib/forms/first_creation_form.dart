@@ -69,6 +69,9 @@ class _TitleInput extends StatelessWidget {
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.red.shade800, width: 2.0),
               ),
+              prefixIcon: Icon(
+                const IconData(0x1F3C1, fontFamily: 'MaterialIcons'),
+              ),
             ),
           ),
         );
@@ -101,6 +104,9 @@ class _DescriptionInput extends StatelessWidget {
               ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.red.shade800, width: 2.0),
+              ),
+              prefixIcon: Icon(
+                const IconData(0x1F4D8, fontFamily: 'MaterialIcons'),
               ),
             ),
           ),
@@ -148,6 +154,9 @@ class _PriceInput extends StatelessWidget {
                   .valute
                   .value
                   .symbol,
+              prefixIcon: Icon(
+                const IconData(0x1F4B0, fontFamily: 'MaterialIcons'),
+              ),
             ),
           ),
         );
@@ -166,6 +175,7 @@ class _ValuteInput extends StatelessWidget {
           value: context.read<FirstCreationFormBloc>().state.valute.value.name,
           labelText: 'Valute',
           padding: EdgeInsets.only(left: 8.0),
+          icon: const IconData(0x1FA99, fontFamily: 'MaterialIcons'),
           picker: ValuteList(
             onTap: (valute) {
               context
@@ -198,6 +208,7 @@ class _MatriculationInput extends StatelessWidget {
           value: _value(context),
           labelText: 'Matriculation',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F4C5, fontFamily: 'MaterialIcons'),
           picker: AppYearPicker(
             onConfirm: (matriculation) {
               context.read<FirstCreationFormBloc>().add(
@@ -221,6 +232,7 @@ class _LocationInput extends StatelessWidget {
               context.read<FirstCreationFormBloc>().state.location.value.name,
           labelText: 'Location',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F4CD, fontFamily: 'MaterialIcons'),
           picker: LocationList(
             onTap: (location) {
               context

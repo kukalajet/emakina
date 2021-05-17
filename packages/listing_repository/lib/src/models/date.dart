@@ -15,5 +15,13 @@ class Date {
   static Date lowerValue() => Date(day: 1, month: 1, year: 1990);
 
   @override
-  String toString() => '$day / $month / $year';
+  String toString() => '{ "day": $day, "month": $month, "year": $year}';
+
+  factory Date.fromJson(Map<String, dynamic> json) {
+    return Date(
+      day: int.parse(json['day']),
+      month: int.parse(json['month']),
+      year: int.parse(json['year']),
+    );
+  }
 }

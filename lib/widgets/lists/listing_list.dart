@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:emakina/blocs/blocs.dart';
 import 'package:emakina/widgets/widgets.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ListingList extends StatefulWidget {
   @override
@@ -41,25 +42,30 @@ class _ListingListState extends State<ListingList> {
               child: Text('no posts'),
             );
           }
-          return GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 2.0,
-              mainAxisSpacing: 2.0,
-              childAspectRatio: 4 / 5,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return index >= state.listings.length
-                  ? BottomLoader()
-                  : ListingTileAlt(listing: state.listings[index]);
-            },
+          return StaggeredGridView.countBuilder(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            controller: _scrollController,
             itemCount: state.hasReachedMax
                 ? state.listings.length
                 : state.listings.length + 1,
-            controller: _scrollController,
+            itemBuilder: (BuildContext context, int index) {
+              return index >= state.listings.length
+                  ? BottomLoader()
+                  : ListingTileAlt(
+                      listing: state.listings[index],
+                      index: index,
+                    );
+            },
+            staggeredTileBuilder: (int index) {
+              double mainAxisCellCount = 1.05;
+              if (index % 2 == 0) mainAxisCellCount = 1.10;
+              if (index % 3 == 0) mainAxisCellCount = 1.15;
+              if (index % 5 == 0) mainAxisCellCount = 1.20;
+              return StaggeredTile.count(1, mainAxisCellCount);
+            },
           );
-          // return ListingTileAlt();
         }
       },
     );

@@ -35,16 +35,15 @@ class _LocationListState extends State<LocationList> {
             if (state.locations.isEmpty) {
               return const Center(child: Text('no types'));
             }
-            return Container(
-              decoration: BoxDecoration(color: Colors.indigo[50]),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List.generate(state.locations.length, (index) {
-                  return _LocationItem(
-                    location: state.locations[index],
-                    onTap: widget.onTap,
-                  );
-                }),
+            return Material(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _LocationItem(
+                  location: state.locations[index],
+                  onTap: widget.onTap,
+                ),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: state.locations.length,
               ),
             );
           default:
@@ -67,20 +66,9 @@ class _LocationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      title: Text(location.name, style: Theme.of(context).textTheme.headline4),
       onTap: () => onTap(location),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(location.name, style: TextStyle(color: Colors.black87)),
-          ],
-        ),
-        // child: ListTile(
-        //   title: Text(location.name, style: TextStyle(color: Colors.black87)),
-        // ),
-      ),
     );
   }
 }

@@ -52,6 +52,7 @@ class _ManufacturerInput extends StatelessWidget {
               .name,
           labelText: 'Manufacturer',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F698, fontFamily: 'MaterialIcons'),
           picker: ManufacturerList(
             onTap: (manufacturer) {
               context
@@ -82,6 +83,7 @@ class _ModelInput extends StatelessWidget {
           value: context.read<SecondCreationFormBloc>().state.model.value.name,
           labelText: 'Model',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F699, fontFamily: 'MaterialIcons'),
           picker: manufacturerId != null
               ? ModelList(
                   manufaturerId: manufacturerId,
@@ -132,6 +134,9 @@ class _MileageInput extends StatelessWidget {
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.red.shade800, width: 2.0),
               ),
+              prefixIcon: Icon(
+                const IconData(0x1F4CF, fontFamily: 'MaterialIcons'),
+              ),
             ),
           ),
         );
@@ -156,6 +161,7 @@ class _TypeInput extends StatelessWidget {
               .name,
           labelText: 'Vehicle Type',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F3CE, fontFamily: 'MaterialIcons'),
           picker: VehicleTypeList(
             onTap: (vehicleType) {
               context
@@ -180,6 +186,7 @@ class _PlateInput extends StatelessWidget {
           value: context.read<SecondCreationFormBloc>().state.plate.value.name,
           labelText: 'Plate',
           padding: EdgeInsets.symmetric(horizontal: 16.0),
+          icon: const IconData(0x1F30D, fontFamily: 'MaterialIcons'),
           picker: PlateList(
             onTap: (plate) {
               context
