@@ -1,3 +1,4 @@
+import 'package:emakina/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +17,7 @@ class HeaderBar extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildActions() {
+  List<Widget> _buildActions(BuildContext context) {
     return [
       IconButton(
         icon: Icon(
@@ -24,7 +25,12 @@ class HeaderBar extends StatelessWidget {
           color: Colors.red[900],
           size: 32.0,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchScreen()),
+          );
+        },
       ),
       Padding(
         padding: const EdgeInsets.only(right: 8.0),
@@ -47,7 +53,7 @@ class HeaderBar extends StatelessWidget {
       bottomOpacity: 0.0,
       elevation: 0.0,
       title: _buildTitle(),
-      actions: _buildActions(),
+      actions: _buildActions(context),
     );
   }
 }

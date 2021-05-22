@@ -9,3 +9,4 @@ export 'plate_list.dart';
 export 'transmission_list.dart';
 export 'fuel_list.dart';
 export 'color_list.dart';
+export 'search_list.dart';

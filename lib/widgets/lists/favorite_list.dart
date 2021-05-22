@@ -56,7 +56,10 @@ class _FavoriteListState extends State<FavoriteList> {
             itemBuilder: (BuildContext context, int index) {
               return index >= state.favorites.length
                   ? null // previously: BottomLoader()
-                  : ListingTileAlt(listing: state.favorites[index]);
+                  : ListingTileAlt(
+                      index: index,
+                      listing: state.favorites[index],
+                    );
             },
             itemCount: state.hasReachedMax
                 ? state.favorites.length

@@ -12,3 +12,4 @@ export 'plate/plate.dart';
 export 'transmission/transmission.dart';
 export 'fuel/fuel.dart';
 export 'color/color.dart';
+export 'search/search.dart';

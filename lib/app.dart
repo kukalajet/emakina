@@ -155,6 +155,7 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        backgroundColor: Colors.white,
         textTheme: _buildTextTheme(context),
       ),
       home: HomeStack(),
