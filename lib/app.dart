@@ -1,3 +1,4 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:color_repository/color_repository.dart';
 import 'package:emakina/blocs/manufacturer/manufacturer_bloc.dart';
 import 'package:emakina/blocs/transmission/transmission.dart';
@@ -20,6 +21,7 @@ import 'package:vehicle_type_repository/vehicle_type_repository.dart';
 class App extends StatelessWidget {
   const App({
     Key key,
+    @required this.authRepository,
     @required this.listingRepository,
     @required this.favoriteRepository,
     @required this.valuteRepository,
@@ -31,7 +33,8 @@ class App extends StatelessWidget {
     @required this.transmissionRepository,
     @required this.fuelRepository,
     @required this.colorRepository,
-  })  : assert(listingRepository != null),
+  })  : assert(authRepository != null),
+        assert(listingRepository != null),
         assert(favoriteRepository != null),
         assert(valuteRepository != null),
         assert(manufacturerRepository != null),
@@ -42,6 +45,7 @@ class App extends StatelessWidget {
         assert(fuelRepository != null),
         assert(colorRepository != null);
 
+  final AuthRepository authRepository;
   final ListingRepository listingRepository;
   final FavoriteRepository favoriteRepository;
   final ValuteRepository valuteRepository;
@@ -58,6 +62,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<AuthRepository>(
+          create: (_) => authRepository,
+        ),
         RepositoryProvider<ListingRepository>(
           create: (_) => listingRepository,
         ),
@@ -94,6 +101,11 @@ class App extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<AuthBloc>(
+            create: (_) => AuthBloc(
+              authRepository: authRepository,
+            ),
+          ),
           BlocProvider<ListingBloc>(
             create: (_) => ListingBloc(
               listingRepository: listingRepository,

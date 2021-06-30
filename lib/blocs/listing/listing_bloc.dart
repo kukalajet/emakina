@@ -51,6 +51,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
     try {
       final favoriteIds = await _fetchFavoriteIds();
       if (state is ListingInitial) {
+        await Future.delayed(Duration(seconds: 1));
         final listings = await _listingRepository.fetchListings(0, 20);
         final List<Listing> updated = listings.map((listing) {
           final id = listing.id;
@@ -64,6 +65,7 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         return ListingSuccess(listings: updated, hasReachedMax: false);
       }
       if (state is ListingSuccess) {
+        await Future.delayed(Duration(seconds: 1));
         final listings =
             await _listingRepository.fetchListings(state.listings.length, 20);
         final List<Listing> updated = listings.map((listing) {
